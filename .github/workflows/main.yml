@@ -38,6 +38,8 @@ jobs:
             --as_user
             --user '*'
             --rate 1
+            --quiet
+            --keeppinned
             --channel notifications
             --perform"
         env:
@@ -71,6 +73,8 @@ jobs:
             --as_user
             --user '*'
             --rate 1
+            --quiet
+            --keeppinned
             --channel chiffre-notifications
             --perform"
         env:
