@@ -37,6 +37,7 @@ jobs:
             --before ${{ steps.before.outputs.date }}
             --as_user
             --user '*'
+            --bot
             --rate 1
             --quiet
             --keeppinned
@@ -72,6 +73,7 @@ jobs:
             --before ${{ steps.before.outputs.date }}
             --as_user
             --user '*'
+            --bot
             --rate 1
             --quiet
             --keeppinned
