@@ -30,6 +30,7 @@ jobs:
             --after ${{ steps.before.outputs.date }}
             --as_user
             --user '*'
+            --rate 1
             --channel notifications
             --perform"
         env:
@@ -55,6 +56,7 @@ jobs:
             --after ${{ steps.before.outputs.date }}
             --as_user
             --user '*'
+            --rate 1
             --channel chiffre-notifications
             --perform"
         env:
