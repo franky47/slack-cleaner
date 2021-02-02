@@ -20,5 +20,7 @@ jobs:
           format: YYYYMMDD
       - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
         name: 'Clear #notifications channel'
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
         with:
-          args: -c slack-cleaner --token ${{ secrets.SLACK_TOKEN }} --message --bot --after ${{ steps.before.outputs.date }} --channel notifications
+          args: -c slack-cleaner --message --bot --after ${{ steps.before.outputs.date }} --channel notifications --info
