@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Slack Cleaner
 
 on:
@@ -18,13 +16,13 @@ jobs:
         with:
           subtract: 7 days
           format: YYYYMMDD
-      - run: echo "${{ steps.before.outputs.date }}"
-      - uses: matken11235/slack-cleaner@v1
+      - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
         name: 'Clear #notifications channel'
         with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          message: true
-          channel: notifications
-          user: '*'
-          before: "${{ steps.before.outputs.date }}"
-          perform: false
+          args: |
+            --token ${{ secrets.SLACK_TOKEN }}
+            --quiet
+            --message
+            --bot
+            --after ${{ steps.before.outputs.date }}
+            --channel notifications
