@@ -13,6 +13,7 @@ jobs:
   notifications:
     name: 'Clear #notifications channel'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - id: before
         uses: lee-dohm/calculate-dates-and-times@598e2d8253f20d161824d8dd0c1fabc0dd1c975e
@@ -23,13 +24,21 @@ jobs:
       - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
         name: Clear channel
         with:
-          args: -c "slack-cleaner --message --after ${{ steps.before.outputs.date }} --as_user --user '*' --channel notifications --perform"
+          args: >
+            -c "slack-cleaner
+            --message
+            --after ${{ steps.before.outputs.date }}
+            --as_user
+            --user '*'
+            --channel notifications
+            --perform"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
   chiffre-notifications:
     name: 'Clear #chiffre-notifications channel'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - id: before
         uses: lee-dohm/calculate-dates-and-times@598e2d8253f20d161824d8dd0c1fabc0dd1c975e
@@ -40,6 +49,13 @@ jobs:
       - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
         name: Clear channel
         with:
-          args: -c "slack-cleaner --message --after ${{ steps.before.outputs.date }} --as_user --user '*' --channel chiffre-notifications --perform"
+          args: >
+            -c "slack-cleaner
+            --message
+            --after ${{ steps.before.outputs.date }}
+            --as_user
+            --user '*'
+            --channel chiffre-notifications
+            --perform"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
