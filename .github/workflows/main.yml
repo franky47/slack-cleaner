@@ -82,7 +82,7 @@ jobs:
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
-rss:
+  rss:
     name: 'Clear RSS channels'
     runs-on: ubuntu-latest
     timeout-minutes: 30
