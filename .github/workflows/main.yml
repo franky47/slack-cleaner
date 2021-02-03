@@ -81,3 +81,57 @@ jobs:
             --perform"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+rss:
+    name: 'Clear RSS channels'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - id: after
+        uses: lee-dohm/calculate-dates-and-times@598e2d8253f20d161824d8dd0c1fabc0dd1c975e
+        name: Calculate date 14 days ago
+        with:
+          subtract: 14 days
+          format: YYYYMMDD
+      - id: before
+        uses: lee-dohm/calculate-dates-and-times@598e2d8253f20d161824d8dd0c1fabc0dd1c975e
+        name: Calculate date 7 days ago
+        with:
+          subtract: 7 days
+          format: YYYYMMDD
+      - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
+        name: 'Clear #rss-social-watch channel'
+        with:
+          args: >
+            -c "slack-cleaner
+            --message
+            --after ${{ steps.after.outputs.date }}
+            --before ${{ steps.before.outputs.date }}
+            --as_user
+            --user '*'
+            --bot
+            --rate 1
+            --quiet
+            --keeppinned
+            --group rss-social-watch
+            --perform"
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      - uses: docker://sgratzl/slack-cleaner@sha256:6aa23eb817c5fde2dd6157e2454b401318f11f6433c673aa48783d96d4dc95d5
+        name: 'Clear #rss-blogs channel'
+        with:
+          args: >
+            -c "slack-cleaner
+            --message
+            --after ${{ steps.after.outputs.date }}
+            --before ${{ steps.before.outputs.date }}
+            --as_user
+            --user '*'
+            --bot
+            --rate 1
+            --quiet
+            --keeppinned
+            --group rss-blogs
+            --perform"
+        env:
+          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
