@@ -113,7 +113,7 @@ jobs:
             --rate 1
             --quiet
             --keeppinned
-            --channel stripe-dev
+            --group stripe-dev
             --perform"
         env:
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
